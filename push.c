@@ -1,4 +1,3 @@
-#include <stderr.h>
 #include <stdio.h>
 #include "monty.h"
 
@@ -10,46 +9,26 @@
  */
 void f_push(stack_t **head, unsigned int counter)
 {
-    int n, j = 0;
-    
-    if (!bus.arg || !is_valid_integer(bus.arg))
-    {
-        print_error_and_exit(counter);
-    }
+	int j = 0;
+	int flag = 0;
 
-    n = atoi(bus.arg);
-
-    if (bus.lifi == 0)
-        addnode(head, n);
-    else
-        addqueue(head, n);
+for (; bus.arg[j] != '\0'; j++)
+{
+if ((bus.arg[j] == '-' && j == 0) || (bus.arg[j] > '9' || bus.arg[j] < '0'))
+	{
+	flag = 1;
+break;
+	}
 }
 
-int is_valid_integer(const char *str)
-{
-    int j = 0;
-
-    if (str[0] == '-')
-    {
-        j++;
-    }
-
-    for (; str[j] != '\0'; j++)
-    {
-        if (!isdigit(str[j]))
-        {
-            return 0;
-        }
-    }
-
-    return 1;
-}
-
-void print_error_and_exit(unsigned int counter)
-{
-    fprintf(stderr, "L%d: usage: push integer\n", counter);
-    fclose(bus.file);
-    free(bus.content);
-    free_stack(*head);
-    exit(EXIT_FAILURE);
+if (flag == 1)
+	{
+fprintf(stderr, "L%d: push: \"%s\" is not a valid integer\n",
+		counter, bus.arg);
+	fclose(bus.file);
+	free(bus.content);
+	free_stack(*head);
+	exit(EXIT_FAILURE);
+	}
+  printf("Pushing valid integer: %s\n", bus.arg);
 }

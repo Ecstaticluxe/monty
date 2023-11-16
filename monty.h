@@ -1,6 +1,12 @@
-#include <stderr>
+#ifndef MONTY_H
+#define MONTY_H
+#include <stdio.h>
 #include <stdlib.h>
-#include <stdlib.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <string.h>
+#include <ctype.h>
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -19,9 +25,6 @@ typedef struct stack_s
 } stack_t;
 
 
-
-
-
 /**
  * struct instruction_s - opcode and its function
  * @opcode: the opcode
@@ -37,6 +40,18 @@ typedef struct instruction_s
 } instruction_t;
 
 
+void f_push(stack_t **head, unsigned int counter);
+void print_error_and_exit(unsigned int counter);
+
+int is_valid_integer(const char *str);
+void f_pall(stack_t **head, unsigned int counter);
+void f_pint(stack_t **head, unsigned int counter);
+void f_pop(stack_t **head, unsigned int counter);
+void f_swap(stack_t **head, unsigned int counter);
+void f_swap(stack_t **head, unsigned int counter);
+void f_nop(stack_t **head, unsigned int counter)
 
 
 
+
+#endif
