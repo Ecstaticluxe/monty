@@ -21,17 +21,6 @@ void f_push(stack_t **head, unsigned int counter)
         free_stack(*head);
         exit(EXIT_FAILURE);
     }
-
-    for (; bus.arg[j] != '\0'; j++)
-    {
-        if ((bus.arg[j] == '-' && j == 0) || (bus.arg[j] > '9' || bus.arg[j] < '0'))
-        {
-            flag = 1;
-            break;
-        }
-    }
-
-    if (flag == 1 || (j == 1 && bus.arg[0] == '-'))
     {
         fprintf(stderr, "L%d: push: \"%s\" is not a valid integer\n", counter, bus.arg);
         fclose(bus.file);
