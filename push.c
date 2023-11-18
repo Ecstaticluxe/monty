@@ -1,40 +1,91 @@
-#include <stdio.h>
 #include "monty.h"
-
+int check_integer(char *str);
+void addNode(stack_t **stack);
 /**
- * f_push - pushes an element to the stack.
- * @head: stack head
- * @counter: line_number
- * Return: no return
+ *push - push elemnt in to the stack
+ *@stack: pointer to the head pointer
+ *@line_number: line number
+ *Return: void
  */
-
-void f_push(stack_t **head, unsigned int number)
+void push(stack_t **stack, unsigned int line_number)
 {
-	int n, j = 0, flag = 0;
+	int data;
 
-	if (bus.arg)
+	if (check_integer(store.data) == 1)
 	{
-	if (bus.arg[0] == '-')
-	j++;
-	for (; bus.arg[j] != '\0'; j++)
+		fprintf(stderr, "L%d: usage: push integer\n", line_number);
+		free_stack();
+		fclose(store.myfile);
+		exit(EXIT_FAILURE);
+	}
+	data = atoi(store.data);
+	*stack = store.head;
+	if (*stack == NULL)
 	{
-		if (bus.arg[j] > 57 || bus.arg[j] < 48)
-		flag = 1; }
-	if (flag == 1)
-	{ fprintf(stderr, "L%d: usage: push integer\n", number);
-			fclose(bus.file);
-			free(bus.content);
-			free_stack(*head);
-			exit(EXIT_FAILURE); }}
+		*stack = malloc(sizeof(stack_t));
+		if (*stack == NULL)
+		{
+			fprintf(stderr, "Error: malloc failed\n");
+			free_stack();
+			free(store.data);
+			fclose(store.myfile);
+			exit(EXIT_FAILURE);
+		}
+		(*stack)->n = data;
+		(*stack)->prev = NULL;
+		(*stack)->next = NULL;
+		store.head = *stack;
+	}
 	else
-	{ fprintf(stderr, "L%d: usage: push integer\n", number);
-		fclose(bus.file);
-		free(bus.content);
-		free_stack(*head);
-		exit(EXIT_FAILURE); }
-	n = atoi(bus.arg);
-	if (bus.lifi == 0)
-	addnode(head, n);
-	else
-	addqueue(head, n);
+	{
+		(addNode(stack));
+	}
+}
+/**
+ *addNode - add node at the top of the stack
+ *@stack: pointer to the head pointer
+ *Return: void
+ */
+void addNode(stack_t **stack)
+{
+	int data = atoi(store.data);
+	stack_t *newNode = NULL;
+
+	newNode = malloc(sizeof(stack_t));
+	if (newNode == NULL)
+	{
+		fprintf(stderr, "Error: malloc failed");
+		free_stack();
+		fclose(store.myfile);
+		exit(EXIT_FAILURE);
+	}
+	newNode->n = data;
+	newNode->next = *stack;
+	(*stack)->prev = newNode;
+	newNode->prev = NULL;
+	*stack = newNode;
+	store.head = *stack;
+}
+/**
+ *check_integer - check the integer
+ *@str: pointer to a string
+ *Return: 1
+ */
+int check_integer(char *str)
+{
+	int i;
+
+	if (!str)
+		return (1);
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] == '-' && str[i + 1] != '0')
+			i++;
+		if (str[i] < '0' || str[i] > '9')
+			return (1);
+		i++;
+		continue;
+	}
+	return (0);
 }
