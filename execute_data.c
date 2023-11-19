@@ -14,6 +14,9 @@ int execute_opcode(char *content, stack_t **stack,
 	instruction_t opst[] = {
 		{"push", my_push},
 		{"pall", my_pall},
+		{"pint", my_pint},
+		{"pop", my_pop},
+		{"swap", my_swap},
 
 		{NULL, NULL},
 	};
