@@ -46,7 +46,6 @@ void my_push(stack_t **head, unsigned int checker)
 
 	if (!sup.arg || !is_valid_integer(sup.arg))
 		exit_with_error(head, checker);
-
 	n = atoi(sup.arg);
 
 	if (sup.lifi == 0)

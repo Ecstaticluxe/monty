@@ -2,40 +2,38 @@
 
 /**
  * execute_opcode - executes the opcode based on the instruction table
- * @content: opcode and argument string
- * @stack: stack head
- * @line_number: line number in the Monty file
+ * @stack: Stack head
+ * @line_number: line number in the monty file
  * @file: Monty file
- * Return: 0 on success, 1 on failure
+ * @content: opcode and argument string
+ * Return: 0 on success, -1 on failure
  */
 int execute_opcode(char *content, stack_t **stack,
 		unsigned int line_number, FILE *file)
 {
-	unsigned int i;
-	char *opcode = strtok(content, " \n\t");
-
-	instruction_t opcodes[] = {
+	instruction_t opst[] = {
 		{"push", my_push},
 		{"pall", my_pall},
-		{NULL, NULL}
+
+		{NULL, NULL},
 	};
+	unsigned int i = 0;
+	char *opcode;
 
-
+	opcode = strtok(content, " \n\t");
 	if (opcode && opcode[0] == '#')
 		return (0);
-
 	sup.arg = strtok(NULL, " \n\t");
-
-	for (i = 0; opcodes[i].opcode; i++)
+	while (opst[i].opcode && opcode)
 	{
-		if (strcmp(opcode, opcodes[i].opcode) == 0)
+		if (strcmp(opcode, opst[i].opcode) == 0)
 		{
-			opcodes[i].f(stack, line_number);
+			opst[i].f(stack, line_number);
 			return (0);
 		}
+		i++;
 	}
-
-	if (opcode)
+	if (opcode && opst[i].opcode == NULL)
 	{
 		fprintf(stderr, "L%d: unknown instruction %s\n", line_number, opcode);
 		fclose(file);
@@ -43,6 +41,5 @@ int execute_opcode(char *content, stack_t **stack,
 		release_stack(*stack);
 		exit(EXIT_FAILURE);
 	}
-
 	return (1);
 }
