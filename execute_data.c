@@ -17,6 +17,8 @@ int execute_opcode(char *content, stack_t **stack,
 		{"pint", my_pint},
 		{"pop", my_pop},
 		{"swap", my_swap},
+		{"nop", my_nop},
+		{"add", my_add},
 
 		{NULL, NULL},
 	};
