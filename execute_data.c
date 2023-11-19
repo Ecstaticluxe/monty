@@ -1,5 +1,4 @@
 #include "monty.h"
-
 /**
  * execute_opcode - executes the opcode based on the instruction table
  * @stack: Stack head
