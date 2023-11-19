@@ -19,6 +19,11 @@ int execute_opcode(char *content, stack_t **stack,
 		{"swap", my_swap},
 		{"nop", my_nop},
 		{"add", my_add},
+		{"sub", my_sub},
+		{"div", my_div},
+		{"mul", my_mul},
+		{"mod", my_mod},
+		{"pchar", my_pchar},
 
 		{NULL, NULL},
 	};
