@@ -24,6 +24,11 @@ int execute_opcode(char *content, stack_t **stack,
 		{"mul", my_mul},
 		{"mod", my_mod},
 		{"pchar", my_pchar},
+		{"pstr", my_pstr},
+		{"rotl", my_rotl},
+		{"rotr", my_rotr},
+		{"stack", my_stack},
+		{"queue", my_queue},
 
 		{NULL, NULL},
 	};
